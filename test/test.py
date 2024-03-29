@@ -2,7 +2,7 @@
 from view.components import *
 
 def login():
-    if p_username.variable.get()==username.get() and p_password.variable.get()==password.get():
+    if p_username.variable.get()==username.variable.get() and p_password.variable.get()==password.variable.get():
         return True
 
 win = Tk()
@@ -22,35 +22,73 @@ Button(win, text="Login", width=10, command=login).place(x=100, y=120)
 
 
 win.mainloop()
+if login():
+    def goto_person():
+        pass
+    def goto_Trans():
+        pass
 
-def goto_person():
-    pass
-def goto_Trans():
-    pass
+    #Homepage
 
-#Homepage
-
-win = Tk()
-win.geometry("190x170")
-win.title("Home Page")
-
-
-
-Button(win, text="Person", width=10, command=goto_person).place(x=50, y=50)
-Button(win, text="Transaction", width=10, command=goto_Trans).place(x=50, y=90)
+    win = Tk()
+    win.geometry("190x170")
+    win.title("Home Page")
 
 
-win.mainloop()
+
+    Button(win, text="Person", width=10, command=goto_person).place(x=50, y=50)
+    Button(win, text="Transaction", width=10, command=goto_Trans).place(x=50, y=90)
 
 
+    win.mainloop()
+
+
+def refresh_person_side():
+    p_id.variable.set("")
+    p_name.variable.set("")
+    p_family.variable.set("")
+    p_table.refresh_table(p_control.find_all()[1] if p_control.find_all()[0] else None)
+
+def person_select(row):
+    p_id.variable.set(row[0])
+    p_name.variable.set(row[1])
+    p_family.variable.set(row[2])
 def person_select():
     pass
 def p_save_click():
-    pass
-def p_remove_click():
-    pass
+    status, message = p_control.save(
+        p_name.variable.get(),
+        p_family.variable.get())
+
+    if status:
+        msg.showinfo("Save", message)
+        refresh_person_side()
+    else:
+        msg.showerror("Save Error", message)
+
 def p_edit_click():
-    pass
+    status, message = p_control.edit(
+        p_id.variable.get(),
+        p_name.variable.get(),
+        p_family.variable.get())
+
+    if status:
+        msg.showinfo("Edit", message)
+        refresh_person_side()
+    else:
+        msg.showerror("Edit Error", message)
+
+def p_remove_click():
+    status, message = p_control.remove(p_id.variable.get())
+
+    if status:
+        msg.showinfo("Remove", message)
+        refresh_person_side()
+    else:
+        msg.showerror("Remove Error", message)
+
+
+
 
 
 #win_person
