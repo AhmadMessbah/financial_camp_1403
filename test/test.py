@@ -8,3 +8,18 @@ import controller.person_controller as p_control
 
 
 # this is test by rasta banaii
+win=Tk()
+TextAndLabel(win,text="hello world",x=60,y=80)
+
+
+
+
+
+
+
+
+
+
+
+
+win.mainloop()
