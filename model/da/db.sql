@@ -3,7 +3,7 @@ create database Acc;
 USE [Acc]
 GO
 
-/****** Object: Table [dbo].[__Person__]   Script Date: 3/29/2024 5:59:05 PM ******/
+/****** Object: Table [dbo].[__Person__]  Script Date: 3/29/2024 5:59:05 PM ******/
 SET ANSI_NULLS ON
 GO
 
