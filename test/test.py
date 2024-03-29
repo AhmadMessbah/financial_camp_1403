@@ -2,7 +2,8 @@
 from view.components import *
 
 def login():
-    pass
+    if p_username.get()==username.get() and p_password.get()==password.get():
+        return True
 
 win = Tk()
 win.geometry("300x200")
@@ -32,6 +33,24 @@ Button(win, text="Login", width=10, command=login).place(x=100, y=120)
 
 win.mainloop()
 
+def goto_person():
+    pass
+def goto_Trans():
+    pass
+
+#Homepage
+
+win = Tk()
+win.geometry("190x170")
+win.title("Home Page")
+
+
+
+Button(win, text="Person", width=10, command=goto_person).place(x=50, y=50)
+Button(win, text="Transaction", width=10, command=goto_Trans).place(x=50, y=90)
+
+
+win.mainloop()
 
 
 def person_select():
@@ -47,7 +66,7 @@ def p_edit_click():
 #win_person
 win = Tk()
 win.geometry("570x400")
-win.title("login")
+win.title("Persons")
 
 
 
@@ -63,8 +82,8 @@ p_password= TextAndLabel(win, "Password", 300, 85)
 
 p_table = Table(win,
                 None,
-                ["id", "Name", "family"],
-                [100, 200, 200],
+                ["id", "Name", "family", "Username", "Password"],
+                [60, 110, 110, 110, 110],
                 25,
                 150,
                 person_select)
@@ -90,7 +109,7 @@ def trans_select_id_click():
 #win_Trans
 win = Tk()
 win.geometry("450x550")
-win.title("login")
+win.title("Transactions")
 
 
 
