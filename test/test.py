@@ -1,7 +1,8 @@
 #import controller.person_controller as p_control
 from view.components import *
 
-
+def login():
+    pass
 
 win = Tk()
 win.geometry("300x200")
@@ -32,8 +33,7 @@ Button(win, text="Login", width=10, command=login).place(x=100, y=120)
 win.mainloop()
 
 
-def login():
-    pass
+
 def person_select():
     pass
 def p_save_click():
@@ -46,7 +46,7 @@ def p_edit_click():
 
 #win_person
 win = Tk()
-win.geometry("350x400")
+win.geometry("570x400")
 win.title("login")
 
 
@@ -58,12 +58,14 @@ Label(win, text="Person Info", font=("Arial", 16)).place(x=20, y=10)
 p_id = TextAndLabel(win, "Id", 20, 50)
 p_name = TextAndLabel(win, "Name", 20, 85)
 p_family = TextAndLabel(win, "Family", 20, 120)
+p_username= TextAndLabel(win, "Username", 300, 50)
+p_password= TextAndLabel(win, "Password", 300, 85)
 
 p_table = Table(win,
                 None,
                 ["id", "Name", "family"],
-                [60, 100, 100],
-                20,
+                [100, 200, 200],
+                25,
                 150,
                 person_select)
 Button(win, text="SavePerson", width=10, command=p_save_click).place(x=20, y=400)
