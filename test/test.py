@@ -2,7 +2,7 @@
 from view.components import *
 
 def login():
-    if p_username.get()==username.get() and p_password.get()==password.get():
+    if p_username.variable.get()==username.get() and p_password.variable.get()==password.get():
         return True
 
 win = Tk()
@@ -20,16 +20,6 @@ password = TextAndLabel(win, "Password", 20, 90)
 Button(win, text="Login", width=10, command=login).place(x=100, y=120)
 
 
-
-
-# print(p_control.save("mohsen", "akbari"))
-# print(p_control.edit(3,"mohsen", "mohseni"))
-# print(p_control.remove(3))
-# print(p_control.find_all())
-# print(p_control.find_by_id(1))
-
-
-# this is test by rasta banaii
 
 win.mainloop()
 
@@ -65,7 +55,7 @@ def p_edit_click():
 
 #win_person
 win = Tk()
-win.geometry("570x400")
+win.geometry("570x500")
 win.title("Persons")
 
 
@@ -87,9 +77,9 @@ p_table = Table(win,
                 25,
                 150,
                 person_select)
-Button(win, text="SavePerson", width=10, command=p_save_click).place(x=20, y=400)
-Button(win, text="EditPerson", width=10, command=p_edit_click).place(x=110, y=400)
-Button(win, text="RemovePerson", width=10, command=p_remove_click).place(x=200, y=400)
+Button(win, text="SavePerson", width=10, command=p_save_click).place(x=100, y=400)
+Button(win, text="EditPerson", width=10, command=p_edit_click).place(x=190, y=400)
+Button(win, text="RemovePerson", width=10, command=p_remove_click).place(x=280, y=400)
 
 
 win.mainloop()
