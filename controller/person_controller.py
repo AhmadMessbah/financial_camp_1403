@@ -1,7 +1,7 @@
 import re
 
-from project.controller.validator import name_validator
-from project.da.person_da import PersonDa
+from controller.validator import name_validator
+from model.da.person_da import PersonDa
 
 
 def save(name,family):
