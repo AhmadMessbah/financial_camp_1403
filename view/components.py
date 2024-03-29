@@ -2,12 +2,6 @@ from tkinter import *
 import tkinter.ttk as ttk
 from persiantools.jdatetime import JalaliDate
 
-class Window:
-    def __init__(self, title, width, height):
-        win = Tk()
-        win.geometry(f"{width}x{height}")
-        win.title(title)
-        win.mainloop()
 
 class Table:
     def refresh_table(self,data_list):
