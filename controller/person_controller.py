@@ -4,7 +4,7 @@ from controller.validator import name_validator
 from model.da.person_da import PersonDa
 
 
-def save(name,family):
+def pr_save(name,family):
     try:
         if name_validator(name) and name_validator(family):
             da = PersonDa()
@@ -16,7 +16,7 @@ def save(name,family):
         return False, f"Error : {e}"
 
 
-def edit(id, name,family):
+def pr_edit(id, name,family):
     try:
         if name_validator(name) and name_validator(family):
             da = PersonDa()
@@ -27,7 +27,7 @@ def edit(id, name,family):
     except Exception as e:
         return False, f"Error : {e}"
 
-def remove(id):
+def pr_remove(id):
     try:
         da = PersonDa()
         da.remove(id)
@@ -35,14 +35,14 @@ def remove(id):
     except Exception as e:
         return False, f"Error : {e}"
 
-def find_all():
+def pr_find_all():
     try:
         da = PersonDa()
         return True, da.find_all()
     except Exception as e:
         return False, f"Error : {e}"
 
-def find_by_id(id):
+def pr_find_by_id(id):
     try:
         da = PersonDa()
         return True, da.find_by_id(id)
