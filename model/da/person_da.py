@@ -1,7 +1,7 @@
 import mysql.connector
 
 class PersonDa:
-    def connect(self,):
+    def connect(self):
         self.connection = mysql.connector.connect(
             host="localhost",
             user="root",
