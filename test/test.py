@@ -149,7 +149,7 @@ def trans_select_id_click():
 
 #win_Trans
 win = Tk()
-win.geometry("420x530")
+win.geometry("410x530")
 win.title("Transactions")
 
 
