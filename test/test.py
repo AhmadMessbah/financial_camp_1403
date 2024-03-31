@@ -128,9 +128,9 @@ p_table = Table(win,
                 25,
                 150,
                 person_select)
-Button(win, text="SavePerson", width=10, command=p_save_click).place(x=100, y=400)
-Button(win, text="EditPerson", width=10, command=p_edit_click).place(x=190, y=400)
-Button(win, text="RemovePerson", width=10, command=p_remove_click).place(x=280, y=400)
+Button(win, text="SavePerson", width=10, command=p_save_click).place(x=140, y=400)
+Button(win, text="EditPerson", width=10, command=p_edit_click).place(x=230, y=400)
+Button(win, text="RemovePerson", width=12, command=p_remove_click).place(x=325, y=400)
 
 
 win.mainloop()
@@ -149,7 +149,7 @@ def trans_select_id_click():
 
 #win_Trans
 win = Tk()
-win.geometry("450x550")
+win.geometry("420x530")
 win.title("Transactions")
 
 
