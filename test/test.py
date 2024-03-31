@@ -8,48 +8,17 @@ from view.components import *
 
 
 
-
+# Pages Management
 def login():
     pass
-
-win = Tk()
-win.geometry("300x200")
-win.title("login")
-
-
-
-
-
-# login
-username = TextAndLabel(win, "Username", 20, 50)
-password = TextAndLabel(win, "Password", 20, 90)
-
-Button(win, text="Login", width=10, command=login).place(x=100, y=120)
-
-
-
-win.mainloop()
-#if login():
+def homepage():
+    pass
 def goto_person():
     pass
 def goto_Trans():
     pass
 
-#Homepage
-
-win = Tk()
-win.geometry("190x170")
-win.title("Home Page")
-
-
-
-Button(win, text="Person", width=10, command=goto_person).place(x=50, y=50)
-Button(win, text="Transaction", width=10, command=goto_Trans).place(x=50, y=90)
-
-
-win.mainloop()
-
-
+# Person Functions
 def refresh_person_side():
     p_id.variable.set("")
     p_name.variable.set("")
@@ -101,19 +70,48 @@ def p_remove_click():
         msg.showerror("Remove Error", message)
 
 
+# Transaction Functions
+def trans_save_click():
+    pass
+def trans_edit_click():
+    pass
+def trans_remove_click():
+    pass
+def trans_select_all_click():
+    pass
+def trans_select_id_click():
+    pass
+
+
+# login Page Design
+win = Tk()
+win.geometry("300x200")
+win.title("login")
+username = TextAndLabel(win, "Username", 20, 50)
+password = TextAndLabel(win, "Password", 20, 90)
+Button(win, text="Login", width=10, command=login).place(x=100, y=120)
+win.mainloop()
 
 
 
-#win_person
+#Homepage Page Design
+win = Tk()
+win.geometry("190x170")
+win.title("Home Page")
+Button(win, text="Person", width=10, command=goto_person).place(x=50, y=50)
+Button(win, text="Transaction", width=10, command=goto_Trans).place(x=50, y=90)
+win.mainloop()
+
+
+
+
+
+
+
+# Person Page Design
 win = Tk()
 win.geometry("570x500")
 win.title("Persons")
-
-
-
-
-
-# Person
 Label(win, text="Person Info", font=("Arial", 16)).place(x=20, y=10)
 p_id = TextAndLabel(win, "Id", 20, 50)
 p_name = TextAndLabel(win, "Name", 20, 85)
@@ -131,32 +129,14 @@ p_table = Table(win,
 Button(win, text="SavePerson", width=10, command=p_save_click).place(x=140, y=400)
 Button(win, text="EditPerson", width=10, command=p_edit_click).place(x=230, y=400)
 Button(win, text="RemovePerson", width=12, command=p_remove_click).place(x=325, y=400)
-
-
 win.mainloop()
 
-def trans_save_click():
-    pass
-def trans_edit_click():
-    pass
-def trans_remove_click():
-    pass
-def trans_select_all_click():
-    pass
-def trans_select_id_click():
-    pass
 
 
-#win_Trans
+#Transaction Page Design
 win = Tk()
 win.geometry("410x530")
 win.title("Transactions")
-
-
-
-
-
-# Transaction
 Label(win, text="Transaction Info", font=("Arial", 16)).place(x=20, y=10)
 amount = TextAndLabel(win, "Amount", 20, 85)
 Label(win, text="Type").place(x=20, y=120)
@@ -174,7 +154,5 @@ Button(win, text="Edit Transaction", width=15, command=trans_edit_click).place(x
 Button(win, text="Remove Transaction", width=15, command=trans_remove_click).place(x=270, y=430)
 Button(win, text="select all Transaction", width=20, command=trans_select_all_click).place(x=50, y=470)
 Button(win, text="select by id Transaction", width=20, command=trans_select_id_click).place(x=210, y=470)
-
-
 win.mainloop()
 
