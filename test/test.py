@@ -6,17 +6,94 @@ from view.components import *
 
 
 
-
-
 # Pages Management
-def login():
-    pass
+
+def close_win():
+    win.withdraw()
+
 def goto_homepage():
-    pass
+    close_win()
+    # Homepage Page Design
+    win = Tk()
+    win.geometry("190x170")
+    win.title("Home Page")
+    # bg_hp=PhotoImage(file="financial.jpg")
+    Label(win, text="Home Page", font=("Helvetica", 16)).place(x=20, y=10)
+    Button(win, text="Person", width=10, command= goto_person).place(x=50, y=50)
+    Button(win, text="Transaction", width=10, command= goto_trans).place(x=50, y=90)
+    win.mainloop()
+
+
 def goto_person():
-    pass
-def goto_Trans():
-    pass
+# Person Page Design
+    # todo: close win only works the first time it is used!
+    close_win()
+    win = Tk()
+    win.geometry("560x500")
+    win.title("person")
+    # bg_pers = PhotoImage(file = "pers.jpeg")
+    Label(win, text="Person Information", font=("Helvetica", 16)).place(x=20, y=10)
+    p_id = TextAndLabel(win, "Id", 20, 50)
+    p_name = TextAndLabel(win, "Name", 20, 85)
+    p_family = TextAndLabel(win, "Family", 20, 120)
+    p_username = TextAndLabel(win, "Username", 300, 50)
+    p_password = TextAndLabel(win, "Password", 300, 85)
+
+    p_table = Table(win,
+                    None,
+                    ["id", "Name", "family", "Username", "Password"],
+                    [60, 110, 110, 110, 110],
+                    25,
+                    150,
+                    person_select)
+    Button(win, text="Save Person", width=12, command=p_save_click).place(x=130, y=400)
+    Button(win, text="Edit Person", width=12, command=p_edit_click).place(x=230, y=400)
+    Button(win, text="Remove Person", width=12, command=p_remove_click).place(x=330, y=400)
+    Button(win, text="Home Page", width=12, command=goto_homepage).place(x=230, y=460)
+    win.mainloop()
+
+def goto_trans():
+    close_win()
+     # Transaction Page Design
+    win = Tk()
+    win.geometry("410x570")
+    win.title("Transactions")
+    # bg_tran = PhotoImage(file = "trans.jpg")
+    Label(win, text="Transaction Info", font=("Helvetica", 16)).place(x=20, y=10)
+    amount = TextAndLabel(win, "Amount", 20, 85)
+    Label(win, text="Type").place(x=20, y=120)
+    type = ttk.Combobox(win, values=['in', 'out'], state='readonly', width=17)
+    type.place(x=100, y=120)
+    trans_table = Table(win,
+                        None,
+                        ["Person Id", "Date and Time", "Amount", "Type"],
+                        [60, 100, 100, 100],
+                        20,
+                        190,
+                        person_select)
+    Button(win, text="Save Transaction", width=15, command=trans_save_click).place(x=30, y=430)
+    Button(win, text="Edit Transaction", width=15, command=trans_edit_click).place(x=150, y=430)
+    Button(win, text="Remove Transaction", width=15, command=trans_remove_click).place(x=270, y=430)
+    Button(win, text="select all Transaction", width=20, command=trans_select_all_click).place(x=50, y=470)
+    Button(win, text="select by id Transaction", width=20, command=trans_select_id_click).place(x=210, y=470)
+    Button(win, text="Home Page", width=12, command= goto_homepage).place(x=150, y=530)
+    win.mainloop()
+
+
+
+    #Todo: we need to get the p_username and p_pasword from goto_person but our function can not have any input so it can be used in command
+def login():
+    if username.variable.get()==p_username.variable.get() and password.variable.get()==p_password.variable.get():
+     #For testing we can use the code below
+    #if username.variable.get()=="admin" and password.variable.get() =="admin":
+        goto_homepage()
+
+
+
+
+
+
+#Todo: same problem as mentioned before
 
 # Person Functions
 def refresh_person_side():
@@ -83,6 +160,11 @@ def trans_select_id_click():
     pass
 
 
+
+
+
+
+
 # login Page Design
 win = Tk()
 win.geometry("300x200")
@@ -96,72 +178,10 @@ win.mainloop()
 
 
 
-#Homepage Page Design
-win = Tk()
-win.geometry("190x170")
-win.title("Home Page")
-#bg_hp=PhotoImage(file="financial.jpg")
-Label(win, text="Home Page", font=("Helvetica", 16)).place(x=20, y=10)
-Button(win, text="Person", width=10, command=goto_person).place(x=50, y=50)
-Button(win, text="Transaction", width=10, command=goto_Trans).place(x=50, y=90)
-win.mainloop()
 
 
 
 
 
 
-
-# Person Page Design
-
-win = Tk()
-win.geometry("560x500")
-win.title("person")
-#bg_pers = PhotoImage(file = "pers.jpeg")
-Label(win, text="Person Information", font=("Helvetica", 16)).place(x=20, y=10)
-p_id = TextAndLabel(win, "Id", 20, 50)
-p_name = TextAndLabel(win, "Name", 20, 85)
-p_family = TextAndLabel(win, "Family", 20, 120)
-p_username= TextAndLabel(win, "Username", 300, 50)
-p_password= TextAndLabel(win, "Password", 300, 85)
-
-p_table = Table(win,
-                None,
-                ["id", "Name", "family", "Username", "Password"],
-                [60, 110, 110, 110, 110],
-                25,
-                150,
-                person_select)
-Button(win, text="Save Person", width=12, command=p_save_click).place(x=130, y=400)
-Button(win, text="Edit Person", width=12, command=p_edit_click).place(x=230, y=400)
-Button(win, text="Remove Person", width=12, command=p_remove_click).place(x=330, y=400)
-Button(win, text="Home Page", width=12, command=goto_homepage).place(x=230, y=460)
-win.mainloop()
-
-
-
-#Transaction Page Design
-win = Tk()
-win.geometry("410x570")
-win.title("Transactions")
-#bg_tran = PhotoImage(file = "trans.jpg")
-Label(win, text="Transaction Info", font=("Helvetica", 16)).place(x=20, y=10)
-amount = TextAndLabel(win, "Amount", 20, 85)
-Label(win, text="Type").place(x=20, y=120)
-type = ttk.Combobox(win, values=['in','out'], state = 'readonly', width=17)
-type.place(x=100, y = 120)
-trans_table = Table(win,
-                None,
-                ["Person Id","Date and Time", "Amount", "Type"],
-                [60, 100, 100, 100],
-                20,
-                190,
-                person_select)
-Button(win, text="Save Transaction", width=15, command=trans_save_click).place(x=30, y=430)
-Button(win, text="Edit Transaction", width=15, command=trans_edit_click).place(x=150, y=430)
-Button(win, text="Remove Transaction", width=15, command=trans_remove_click).place(x=270, y=430)
-Button(win, text="select all Transaction", width=20, command=trans_select_all_click).place(x=50, y=470)
-Button(win, text="select by id Transaction", width=20, command=trans_select_id_click).place(x=210, y=470)
-Button(win, text="Home Page", width=12, command=goto_homepage).place(x=150, y=530)
-win.mainloop()
 
