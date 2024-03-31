@@ -3,8 +3,8 @@ create DATABASE Acc;
     create table acc.__person__
     (
         id int primary key auto_increment,
-            name varchar (30),
-        family       varchar(30)
+         name varchar (30),
+        family  varchar(30)
     );
 
 #--------------------***etelaat tarakonesh ha dar in table zakhire mishe***--------------------------
@@ -13,6 +13,7 @@ create DATABASE Acc;
         id int primary key auto_increment,
         pid int(20),
         type int (10),
+        amount int(50),
         datetime datetime
     );
 #--------------------***in dastor yek fk ba table personel ejad mikone ***--------------------------
@@ -43,6 +44,6 @@ insert into Acc.__pusers__( pid, username, password)
 	    ,family
     from acc.__person__ ;
 end;
-#--------------------------------------------------------------------
+#---------------------------------------------------------------------
 insert into Acc.__pusers__
 value(1,1,"admin","admin")
