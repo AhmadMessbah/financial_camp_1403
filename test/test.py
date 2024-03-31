@@ -109,6 +109,7 @@ win.mainloop()
 
 
 # Person Page Design
+
 win = Tk()
 win.geometry("560x500")
 win.title("person")
