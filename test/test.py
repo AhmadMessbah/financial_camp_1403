@@ -11,7 +11,7 @@ from view.components import *
 # Pages Management
 def login():
     pass
-def homepage():
+def goto_homepage():
     pass
 def goto_person():
     pass
@@ -110,9 +110,10 @@ win.mainloop()
 
 # Person Page Design
 win = Tk()
-win.geometry("570x500")
-win.title("Persons")
-Label(win, text="Person Info", font=("Arial", 16)).place(x=20, y=10)
+win.geometry("560x500")
+win.title("person")
+bg = PhotoImage(file = "financial")
+Label(win, text="Person Information", font=("Roman", 16), background="gray", image=bg).place(x=20, y=10)
 p_id = TextAndLabel(win, "Id", 20, 50)
 p_name = TextAndLabel(win, "Name", 20, 85)
 p_family = TextAndLabel(win, "Family", 20, 120)
@@ -126,16 +127,17 @@ p_table = Table(win,
                 25,
                 150,
                 person_select)
-Button(win, text="SavePerson", width=10, command=p_save_click).place(x=140, y=400)
-Button(win, text="EditPerson", width=10, command=p_edit_click).place(x=230, y=400)
-Button(win, text="RemovePerson", width=12, command=p_remove_click).place(x=325, y=400)
+Button(win, text="Save Person", width=12, command=p_save_click).place(x=130, y=400)
+Button(win, text="Edit Person", width=12, command=p_edit_click).place(x=230, y=400)
+Button(win, text="Remove Person", width=12, command=p_remove_click).place(x=330, y=400)
+Button(win, text="Home Page", width=12, command=goto_homepage).place(x=230, y=460)
 win.mainloop()
 
 
 
 #Transaction Page Design
 win = Tk()
-win.geometry("410x530")
+win.geometry("410x570")
 win.title("Transactions")
 Label(win, text="Transaction Info", font=("Arial", 16)).place(x=20, y=10)
 amount = TextAndLabel(win, "Amount", 20, 85)
@@ -154,5 +156,6 @@ Button(win, text="Edit Transaction", width=15, command=trans_edit_click).place(x
 Button(win, text="Remove Transaction", width=15, command=trans_remove_click).place(x=270, y=430)
 Button(win, text="select all Transaction", width=20, command=trans_select_all_click).place(x=50, y=470)
 Button(win, text="select by id Transaction", width=20, command=trans_select_id_click).place(x=210, y=470)
+Button(win, text="Home Page", width=12, command=goto_homepage).place(x=150, y=530)
 win.mainloop()
 
