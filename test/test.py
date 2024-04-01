@@ -1,10 +1,8 @@
-#import controller.person_controller as p_control
 from tkinter import *
 import tkinter.ttk as ttk
 from view.components import *
-
-
-
+import controller.person_controller as p_control
+import configparser.Trans_controller as t_control
 
 # Pages Management
 
@@ -26,7 +24,6 @@ def goto_homepage():
 
 def goto_person():
 # Person Page Design
-    # todo: close win only works the first time it is used!
     close_win()
     win = Tk()
     win.geometry("560x500")
@@ -40,8 +37,8 @@ def goto_person():
     p_password = TextAndLabel(win, "Password", 300, 85)
 
     p_table = Table(win,
-                    None,
-                    ["id", "Name", "family", "Username", "Password"],
+                    p_control.find_all()[1],
+                    ["Id", "Name", "Family", "Username", "Password"],
                     [60, 110, 110, 110, 110],
                     25,
                     150,
@@ -49,7 +46,6 @@ def goto_person():
     Button(win, text="Save Person", width=12, command=p_save_click).place(x=130, y=400)
     Button(win, text="Edit Person", width=12, command=p_edit_click).place(x=230, y=400)
     Button(win, text="Remove Person", width=12, command=p_remove_click).place(x=330, y=400)
-    Button(win, text="Home Page", width=12, command=goto_homepage).place(x=230, y=460)
     win.mainloop()
 
 def goto_trans():
@@ -60,40 +56,32 @@ def goto_trans():
     win.title("Transactions")
     # bg_tran = PhotoImage(file = "trans.jpg")
     Label(win, text="Transaction Info", font=("Helvetica", 16)).place(x=20, y=10)
-    amount = TextAndLabel(win, "Amount", 20, 85)
-    Label(win, text="Type").place(x=20, y=120)
-    type = ttk.Combobox(win, values=['in', 'out'], state='readonly', width=17)
-    type.place(x=100, y=120)
+    p_id = TextAndLabel(win, "Person ID", 21, 70)
+    t_amount = TextAndLabel(win, "Amount", 20, 105)
+    Label(win, text="Type").place(x=20, y=140)
+    t_type = ttk.Combobox(win, values=['in', 'out'], state='readonly', width=17)
+    t_type.place(x=100, y=140)
     trans_table = Table(win,
-                        None,
+                        t_control.find_all()[1],
                         ["Person Id", "Date and Time", "Amount", "Type"],
                         [60, 100, 100, 100],
                         20,
                         190,
-                        person_select)
-    Button(win, text="Save Transaction", width=15, command=trans_save_click).place(x=30, y=430)
-    Button(win, text="Edit Transaction", width=15, command=trans_edit_click).place(x=150, y=430)
-    Button(win, text="Remove Transaction", width=15, command=trans_remove_click).place(x=270, y=430)
-    Button(win, text="select all Transaction", width=20, command=trans_select_all_click).place(x=50, y=470)
-    Button(win, text="select by id Transaction", width=20, command=trans_select_id_click).place(x=210, y=470)
-    Button(win, text="Home Page", width=12, command= goto_homepage).place(x=150, y=530)
+                        trans_select)
+    Button(win, text="Save Transaction", width=43, command=trans_save_click).place(x=50, y=430)
+    Button(win, text="find all Transaction", width=20, command=trans_find_all_click).place(x=50, y=470)
+    Button(win, text="find by id Transaction", width=20, command=trans_find_id_click).place(x=210, y=470)
     win.mainloop()
 
 
 
     #Todo: we need to get the p_username and p_pasword from goto_person but our function can not have any input so it can be used in command
 def login():
-    if username.variable.get()==p_username.variable.get() and password.variable.get()==p_password.variable.get():
+    #if username.variable.get()==p_username.variable.get() and password.variable.get()==p_password.variable.get():
      #For testing we can use the code below
-    #if username.variable.get()=="admin" and password.variable.get() =="admin":
+    if username.variable.get()=="admin" and password.variable.get() =="admin":
         goto_homepage()
 
-
-
-
-
-
-#Todo: same problem as mentioned before
 
 # Person Functions
 def refresh_person_side():
@@ -110,8 +98,9 @@ def person_select(row):
     p_family.variable.set(row[2])
     p_username.variable.set(row[3])
     p_password.variable.set(row[4])
+
 def p_save_click():
-    status, message = p_control.save(
+    status, message = p_control.pr_save(
         p_name.variable.get(),
         p_family.variable.get(),
         p_username.variable.get(),
@@ -124,7 +113,7 @@ def p_save_click():
         msg.showerror("Save Error", message)
 
 def p_edit_click():
-    status, message = p_control.edit(
+    status, message = p_control.pr_edit(
         p_id.variable.get(),
         p_name.variable.get(),
         p_family.variable.get(),
@@ -138,7 +127,7 @@ def p_edit_click():
         msg.showerror("Edit Error", message)
 
 def p_remove_click():
-    status, message = p_control.remove(p_id.variable.get())
+    status, message = p_control.pr_remove(p_id.variable.get())
 
     if status:
         msg.showinfo("Remove", message)
@@ -146,22 +135,53 @@ def p_remove_click():
     else:
         msg.showerror("Remove Error", message)
 
+def trans_select(row):
+    p_id.variable.set(row[0])
+    t_amount.variable.set(row[2])
+    t_type.variable.set(row[3])
+    
+
+def refresh_trans_side():
+    p_id.variable.set("")
+    t_amount.variable.set("")
+    t_type.variable.set("")
+    trans_table.refresh_table(t_control.find_all()[1] if t_control.find_all()[0] else None)
+
 
 # Transaction Functions
 def trans_save_click():
-    pass
-def trans_edit_click():
-    pass
-def trans_remove_click():
-    pass
-def trans_select_all_click():
-    pass
-def trans_select_id_click():
-    pass
+    status, message = t_control.tr_save(
+        p_id.variable.get(),
+        Jalalidate.today(),
+        t_amount.variable.get(),
+        t_type.get())
+
+    if status:
+        msg.showinfo("Save", message)
+        refresh_trans_side()
+    else:
+        msg.showerror("Save Error", message)
 
 
 
+def trans_find_all_click():
+    status, message = t_control.tr_find_all()
 
+    if status:
+        msg.showinfo("found", message)
+        refresh_trans_side()
+    else:
+        msg.showerror("finding Error", message)
+
+
+def trans_find_id_click():
+    status, message = t_control.tr_save(p_id.variable.get())
+
+    if status:
+        msg.showinfo("found", message)
+        refresh_trans_side()
+    else:
+        msg.showerror("finding Error", message)    
 
 
 
@@ -175,13 +195,4 @@ username = TextAndLabel(win, "Username", 20, 50)
 password = TextAndLabel(win, "Password", 20, 90)
 Button(win, text="Login", width=10, command=login).place(x=100, y=120)
 win.mainloop()
-
-
-
-
-
-
-
-
-
 
