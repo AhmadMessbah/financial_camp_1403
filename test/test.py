@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter.ttk as ttk
 from view.components import *
 import controller.person_controller as p_control
-import configparser.Trans_controller as t_control
+import controller.Trans_controller as t_control
 
 # Pages Management
 
