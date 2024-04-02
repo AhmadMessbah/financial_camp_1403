@@ -1,8 +1,196 @@
 from tkinter import *
 import tkinter.ttk as ttk
-from view.components import *
-import controller.person_controller as p_control
-import controller.Trans_controller as t_control
+# from view.components import *
+#import controller.person_controller as p_control
+#import controller.Trans_controller as t_control
+
+import re
+
+
+def name_validator(name):
+    return bool(re.match("^[A-Za-z]{3,15}$", name))
+
+
+def username_validator(username):
+    return bool(re.match("^[A-Za-z]{1}[A-Za-z0-9]{3,30}$", username))
+
+
+def password_validator(password):
+    return bool(re.match("^[A-Za-z0-9]{1}[A-Za-z0-9@]{7,30}$", password))
+
+
+def amount_validator(amount):
+    return bool(re.match("^[1-9]+{1}[0-9]{2,30}$", amount))
+
+
+def tr_save(id, date_time, amount, type):
+    try:
+        if amount_validator(amount):
+            da = TransDa()
+            da.save(id, date_time, amount, type)
+            return True, "Saved"
+        else:
+            return False, "Error : Invalid Data"
+    except Exception as e:
+        return False, f"Error : {e}"
+
+def tr_find_all():
+    try:
+        da = TransDa()
+        return True, da.find_all()
+    except Exception as e:
+        return False, f"Error : {e}"
+
+def tr_find_by_id(id):
+    try:
+        da = TransDa()
+        return True, da.find_by_id(id)
+    except Exception as e:
+        return False, f"Error : {e}"
+
+def tr_balance(id):
+    balance = 0
+    try:
+        da = TransDa()
+        trs = da.find_by_id(id)
+        for item in trs:
+            if da.type == 0:
+                balance -= da.amount
+            else:
+                balance += da.amount
+        return balance
+    except Exception as e:
+        return False, f"Error : {e}"
+
+
+import re
+
+
+
+def pr_save(name,family):
+    try:
+        if name_validator(name) and name_validator(family):
+            da = PersonDa()
+            da.save(name,family)
+            return True, "Saved"
+        else:
+            return False, "Error : Invalid Data"
+    except Exception as e:
+        return False, f"Error : {e}"
+
+
+def pr_edit(id, name,family):
+    try:
+        if name_validator(name) and name_validator(family):
+            da = PersonDa()
+            da.edit(id, name,family)
+            return True, "Edited"
+        else:
+            return False, "Error : Invalid Data"
+    except Exception as e:
+        return False, f"Error : {e}"
+
+def pr_remove(id):
+    try:
+        da = PersonDa()
+        da.remove(id)
+        return True, "Removed"
+    except Exception as e:
+        return False, f"Error : {e}"
+
+def pr_find_all():
+    try:
+        da = PersonDa()
+        return True, da.find_all()
+    except Exception as e:
+        return False, f"Error : {e}"
+
+def pr_find_by_id(id):
+    try:
+        da = PersonDa()
+        return True, da.find_by_id(id)
+    except Exception as e:
+        return False, f"Error : {e}"
+
+
+class Table:
+    def refresh_table(self,data_list):
+        for item in self.table.get_children():
+            self.table.delete(item)
+
+        if data_list:
+            for data in data_list:
+                self.table.insert("", END, values=data)
+
+    def select(self, event):
+        selected = self.table.item(self.table.focus())["values"]
+        self.click(selected)
+
+    def __init__(self, master, data_list, headings, widths, x, y, click):
+        self.click = click
+        columns = list(range(len(headings)))
+
+        self.table = ttk.Treeview(master, columns=columns, show="headings")
+        for col in columns:
+            self.table.heading(col, text=headings[col])
+            self.table.column(col, width=widths[col])
+
+        if data_list:
+            for data in data_list:
+                self.table.insert("", END, values=data)
+
+        self.table.bind("<ButtonRelease>", self.select)
+        self.table.bind("<KeyRelease>", self.select)
+        self.table.place(x=x, y=y)
+
+
+class TextAndLabel:
+    def __init__(self, master, text, x, y, distance=80):
+        Label(master, text=text).place(x=x, y=y)
+        self.variable = StringVar()
+        Entry(master, textvariable=self.variable).place(x=x + distance, y=y)
+
+
+class PersianCalendar:
+    def change_date(self, event):
+        self.day["values"] = list(
+            range(1, JalaliDate.days_in_month(int(self.month.get()), int(self.year.get())) + 1, 1))
+        self.persian_date = JalaliDate(int(self.year.get()), int(self.month.get()), int(self.day.get()))
+        self.gregorian_date = self.persian_date.to_gregorian()
+
+    def show_result(self):
+        print("Result : ")
+
+    def __init__(self, master, column_width, x, y):
+        self.persian_date = JalaliDate.today()
+        self.gregorian_date = JalaliDate.today().to_gregorian()
+
+        # Year
+        self.year = ttk.Combobox(master, width=column_width)
+        self.year["values"] = list(range(1300, 1451, 1))
+        self.year["state"] = "readonly"
+        self.year.set(JalaliDate.today().year)
+        self.year.bind("<<ComboboxSelected>>", self.change_date)
+        self.year.place(x=x[0], y=y[0])
+
+        # Month
+        self.month = ttk.Combobox(master, width=column_width)
+        self.month["values"] = list(range(1, 13, 1))
+        self.month["state"] = "readonly"
+        self.month.set(JalaliDate.today().month)
+        self.month.bind("<<ComboboxSelected>>", self.change_date)
+        self.month.place(x=x[1], y=y[1])
+
+        # Day
+        self.day = ttk.Combobox(master, width=column_width)
+        self.day["state"] = "readonly"
+        self.day["values"] = list(
+            range(1, JalaliDate.days_in_month(JalaliDate.today().month, JalaliDate.today().year) + 1, 1))
+        self.day.set(JalaliDate.today().day)
+        self.day.bind("<<ComboboxSelected>>", self.change_date)
+        self.day.place(x=x[2], y=y[2])
+
+
 
 # Pages Management
 
